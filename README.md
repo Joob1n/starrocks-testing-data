@@ -16,14 +16,10 @@ Add other format directories when datasets are introduced. Preserve each format'
 native directory structure. Parquet files belonging to a Paimon table stay with
 that table; standalone Parquet datasets belong in a separate `parquet/` directory.
 
-## Adding or updating data
+## Contributing
 
-- Keep datasets small and focused on the behavior being tested.
-- Include generation instructions and tool versions where available.
-- Document expected logical results and required physical layouts.
-- Keep generation tools alongside their datasets.
-- Prefer a new table or dataset when a change would invalidate existing tests.
-- Do not include credentials, private endpoints, or sensitive data.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for dataset requirements, branch naming,
+commit conventions, and the cross-repository PR workflow.
 
 ## Using data in StarRocks
 
@@ -35,12 +31,3 @@ git submodule update --init test/data
 ```
 
 CI should use the recorded commit, without `--remote`, to keep test data reproducible.
-
-## Coordinating changes
-
-1. Open a data PR here and a linked StarRocks PR.
-2. After the data PR is squash-merged, update the StarRocks submodule pointer to
-   the merged commit.
-3. Validate and merge the StarRocks PR.
-
-Tests using existing datasets only require a StarRocks PR.
