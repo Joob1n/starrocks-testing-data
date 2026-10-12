@@ -1,37 +1,25 @@
 # StarRocks Testing Data
 
-Shared test datasets for StarRocks integration tests.
+Shared datasets for StarRocks tests. Test cases and SQL expectations remain in
+the StarRocks repository.
 
-StarRocks references this repository as a Git submodule pinned to a specific
-commit. Test cases, expected SQL results, and execution helpers remain in the
-StarRocks repository.
+## Layout
 
-## Directory layout
+- [catalog/](catalog/README.md): external catalog fixtures, including
+  [Paimon](catalog/paimon/README.md).
+- `load/<format>/<scenario>/`: ingestion inputs; create directories as needed.
 
-Datasets are grouped by test domain:
+Keep datasets small and preserve native table structures. Include data sources,
+generation instructions, and expected results when adding fixtures. Reuse
+identical files and do not include credentials or sensitive data.
 
-- [catalog/](catalog/README.md): external catalog fixtures, organized by table
-  format or data source, including [Paimon](catalog/paimon/README.md).
-- `load/`: reserved for ingestion inputs, organized by file format and scenario,
-  for example `load/csv/null_values/`. Create it when the first dataset is added.
+## Use in StarRocks
 
-Preserve each format's native directory structure. Parquet files belonging to a
-Paimon table stay with that table under `catalog/paimon/`.
-Reuse input files across load methods when their contents are identical.
-Add other domain directories only when actual datasets need them.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for dataset requirements, branch naming,
-commit conventions, and the cross-repository PR workflow.
-
-## Using data in StarRocks
-
-Once StarRocks registers this repository at `test/data`, initialize the recorded
-version from the StarRocks repository root:
+From the StarRocks repository root, fetch the pinned data version:
 
 ```bash
 git submodule update --init test/data
 ```
 
-CI should use the recorded commit, without `--remote`, to keep test data reproducible.
+After a data PR is squash-merged, update the StarRocks submodule pointer to the
+merged commit.
