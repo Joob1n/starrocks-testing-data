@@ -8,13 +8,17 @@ StarRocks repository.
 
 ## Directory layout
 
-Datasets are grouped by format:
+Datasets are grouped by test domain:
 
-- [paimon/](paimon/README.md): Paimon tables, generation tools, and documentation.
+- [catalog/](catalog/README.md): external catalog fixtures, organized by table
+  format or data source, including [Paimon](catalog/paimon/README.md).
+- `load/`: reserved for ingestion inputs, organized by file format and scenario,
+  for example `load/csv/null_values/`. Create it when the first dataset is added.
 
-Add other format directories when datasets are introduced. Preserve each format's
-native directory structure. Parquet files belonging to a Paimon table stay with
-that table; standalone Parquet datasets belong in a separate `parquet/` directory.
+Preserve each format's native directory structure. Parquet files belonging to a
+Paimon table stay with that table under `catalog/paimon/`.
+Reuse input files across load methods when their contents are identical.
+Add other domain directories only when actual datasets need them.
 
 ## Contributing
 

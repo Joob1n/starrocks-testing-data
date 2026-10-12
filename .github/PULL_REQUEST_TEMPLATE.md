@@ -12,6 +12,7 @@ Related StarRocks PR: <!-- Link, or N/A. -->
 
 <!-- For documentation-only changes, write N/A. -->
 
+- Test domain (catalog, load, etc.):
 - Format:
 - Added or changed data size:
 - Source and generation instructions:

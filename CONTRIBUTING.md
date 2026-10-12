@@ -19,14 +19,20 @@ Sign off every commit with `git commit -s`.
 
 ## Dataset layout
 
-Group datasets by format, such as `paimon/`, `iceberg/`, or `parquet/`.
-Create directories only when adding data for that format.
+Group datasets by test domain at the top level:
 
-Preserve each format's native directory structure. Keep data files
-and metadata belonging to the same table together.
+- `catalog/<format-or-source>/`: external catalog fixtures, such as Paimon or Iceberg.
+- `load/<file-format>/<scenario>/`: ingestion inputs, such as CSV null-value cases.
+
+Create directories only when adding actual datasets. Each domain may use the
+internal layout its data requires. Preserve native table structures and keep
+data files and metadata belonging to the same table together.
+
+Reuse identical input files across load methods instead of duplicating them.
+Introduce a shared directory only when concrete cross-domain reuse requires one.
 
 Keep generation tools and instructions alongside their datasets.
-See [paimon/](paimon/README.md) for an example.
+See [catalog/paimon/](catalog/paimon/README.md) for an example.
 
 ## Dataset requirements
 
@@ -52,7 +58,7 @@ Write PR titles and descriptions in English. Use the
 
 - Why the data is needed and what changed.
 - The related StarRocks PR, when applicable.
-- The format, approximate data size, and generation instructions.
+- The test domain, format, approximate data size, and generation instructions.
 - How the data was validated.
 - Any changes to existing datasets and their impact on tests.
 

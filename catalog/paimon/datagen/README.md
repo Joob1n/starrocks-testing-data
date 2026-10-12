@@ -12,13 +12,13 @@ From the testing-data repository root, with `PAIMON_FIXTURE_CLASSPATH` set to th
 ```bash
 fixture_work=$(mktemp -d ./paimon-fixture.XXXXXX)
 javac -proc:none -cp "$PAIMON_FIXTURE_CLASSPATH" -d "$fixture_work" \
-  paimon/datagen/GeneratePrimaryKeyFixture.java
+  catalog/paimon/datagen/GeneratePrimaryKeyFixture.java
 java -Xmx256m -cp "$PAIMON_FIXTURE_CLASSPATH:$fixture_work" \
   GeneratePrimaryKeyFixture generate "$fixture_work/warehouse"
 
 # Independently verify the checked-in fixture, including after relocating it.
 java -Xmx256m -cp "$PAIMON_FIXTURE_CLASSPATH:$fixture_work" \
-  GeneratePrimaryKeyFixture verify paimon/warehouse
+  GeneratePrimaryKeyFixture verify catalog/paimon/warehouse
 ```
 
 The generator refuses an existing output warehouse. It produces `paimon_test.db/pk_merge_v1`
